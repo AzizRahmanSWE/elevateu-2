@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export default function CompleteProfile() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 py-8 px-4 overflow-y-auto">
+    <div className="min-h-full bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 py-8 px-4">
       {/* Background effects */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl" />

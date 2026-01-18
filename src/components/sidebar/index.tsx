@@ -20,10 +20,10 @@ const MenuOptions = (props: Props) => {
   const pathName = usePathname()
 
   return (
-    <nav className=" dark:bg-black h-screen overflow-scroll  justify-between flex items-center flex-col  gap-10 py-6 px-2">
+    <nav className="h-screen overflow-y-auto overflow-x-hidden justify-between flex items-center flex-col gap-10 py-6 px-3 bg-transparent">
       <div className="flex items-center justify-center flex-col gap-8">
         <Link
-          className="flex font-bold flex-row "
+          className="flex font-bold flex-row bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-400"
           href="/"
         >
           Elevate.
@@ -37,9 +37,9 @@ const MenuOptions = (props: Props) => {
                     <Link
                       href={menuItem.href}
                       className={clsx(
-                        'group h-8 w-8 flex items-center justify-center  scale-[1.5] rounded-lg p-[3px]  cursor-pointer',
+                        'group h-8 w-8 flex items-center justify-center scale-[1.5] rounded-lg p-[3px] cursor-pointer border border-transparent bg-white/[0.02] hover:bg-white/[0.06] hover:border-gray-700/70 transition-colors',
                         {
-                          'dark:bg-[#2F006B] bg-[#EEE0FF] ':
+                          'bg-gradient-to-br from-purple-600/25 to-pink-600/25 border-purple-500/40':
                             pathName === menuItem.href,
                         }
                       )}
@@ -52,7 +52,7 @@ const MenuOptions = (props: Props) => {
                 </TooltipTrigger>
                 <TooltipContent // shows text/tag on hover
                   side="right"
-                  className="bg-black/10 backdrop-blur-xl"
+                  className="bg-black/60 border border-gray-800/60 text-gray-100 backdrop-blur-xl"
                 >
                   <p>{menuItem.name}</p>
                 </TooltipContent>
@@ -61,29 +61,29 @@ const MenuOptions = (props: Props) => {
           ))}
         </TooltipProvider>
         <Separator />
-        <div className="flex items-center flex-col gap-9 dark:bg-[#353346]/30 py-4 px-2 rounded-full h-56 overflow-scroll border-[1px]">
-          <div className="relative dark:bg-[#353346]/70 p-2 rounded-full dark:border-t-[2px] border-[1px] dark:border-t-[#353346]">
+        <div className="flex items-center flex-col gap-9 bg-white/[0.03] py-4 px-2 rounded-full h-56 overflow-y-auto overflow-x-hidden border border-gray-800/60">
+          <div className="relative bg-white/[0.06] p-2 rounded-full border border-gray-700/70">
             <LucideMousePointerClick
-              className="dark:text-white"
+              className="text-gray-200"
               size={18}
             />
             <div className="border-l-2 border-muted-foreground/50 h-6 absolute left-1/2 transform translate-x-[-50%] -bottom-[30px]" />
           </div>
-          <div className="relative dark:bg-[#353346]/70 p-2 rounded-full dark:border-t-[2px] border-[1px] dark:border-t-[#353346]">
+          <div className="relative bg-white/[0.06] p-2 rounded-full border border-gray-700/70">
             <GitBranch
               className="text-muted-foreground"
               size={18}
             />
             <div className="border-l-2 border-muted-foreground/50 h-6 absolute left-1/2 transform translate-x-[-50%] -bottom-[30px]"></div>
           </div>
-          <div className="relative dark:bg-[#353346]/70 p-2 rounded-full dark:border-t-[2px] border-[1px] dark:border-t-[#353346]">
+          <div className="relative bg-white/[0.06] p-2 rounded-full border border-gray-700/70">
             <Database
               className="text-muted-foreground"
               size={18}
             />
             <div className="border-l-2 border-muted-foreground/50 h-6 absolute left-1/2 transform translate-x-[-50%] -bottom-[30px]"></div>
           </div>
-          <div className="relative dark:bg-[#353346]/70 p-2 rounded-full dark:border-t-[2px] border-[1px] dark:border-t-[#353346]">
+          <div className="relative bg-white/[0.06] p-2 rounded-full border border-gray-700/70">
             <GitBranch
               className="text-muted-foreground"
               size={18}
