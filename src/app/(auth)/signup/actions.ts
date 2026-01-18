@@ -13,12 +13,13 @@ export async function signup(formData: FormData) {
     const supabase = createRouteHandlerClient({ cookies })
 
     // 1. Sign up the user
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://localhost:3000'
     const { data: { user }, error: signUpError } = await supabase.auth.signUp({
       email,
       password,
       options: {
         data: { full_name: name },
-        emailRedirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`
+        emailRedirectTo: `${siteUrl}/auth/callback`
       }
     })
 

@@ -94,13 +94,12 @@ export const products = [
 
 // Different Pages Options SideBar
 export const menuOptions = [
-  { name: 'Create Workouts', Component: Home, href: '/dashboard' },
+  { name: 'Dashboard', Component: Home, href: '/dashboard' },
   { name: 'All Workouts', Component: Workflows, href: '/all-workouts' },
   { name: 'Current Workouts', Component: Logs, href: '/current-workouts' },
-  { name: 'Complete Profile', Component: Settings, href: '/complete-profile' },
   { name: 'Completed Workouts', Component: Category, href: '/completed-workouts' },
-  { name: 'Settings', Component: Payment, href: '/settings' },
   { name: 'Templates', Component: Templates, href: '/templates' },
+  { name: 'Settings', Component: Settings, href: '/settings' },
 ]
 
 // export const EditorCanvasDefaultCardTypes = {

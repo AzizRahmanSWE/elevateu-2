@@ -1,7 +1,7 @@
-"use client"; // Add this directive at the top
+"use client";
 
 import { useSearchParams, useRouter } from "next/navigation";
-import { useEffect, useTransition } from "react";
+import { useEffect, useTransition, FormEvent } from "react";
 import Link from "next/link";
 import { toast } from "sonner";
 import { login } from "./actions";

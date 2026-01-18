@@ -46,8 +46,11 @@ export async function middleware(req: NextRequest) {
     profile.fitnessLevel
   )
 
-  // If profile is incomplete and not on complete-profile page, redirect
-  if (!isProfileComplete && req.nextUrl.pathname !== '/complete-profile') {
+  // Allow access to settings page regardless of profile completion
+  const isSettingsPage = req.nextUrl.pathname === '/settings'
+  
+  // If profile is incomplete and not on complete-profile or settings page, redirect
+  if (!isProfileComplete && req.nextUrl.pathname !== '/complete-profile' && !isSettingsPage) {
     return NextResponse.redirect(new URL('/complete-profile', req.url))
   }
 
