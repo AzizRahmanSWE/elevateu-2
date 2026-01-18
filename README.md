@@ -11,8 +11,9 @@
 [![Supabase](https://img.shields.io/badge/Supabase-3.0-green?style=for-the-badge&logo=supabase)](https://supabase.com/)
 [![Prisma](https://img.shields.io/badge/Prisma-6.4-2D3748?style=for-the-badge&logo=prisma)](https://www.prisma.io/)
 
-[Live Demo](#) • [Documentation](#) • [Report Bug](#) • [Request Feature](#)
+[Live Demo](#-deployment) • [Documentation](#-getting-started) • [Report Bug](#-contributing) • [Request Feature](#-contributing)
 
+![ElevateU](public/homepage.jpg)
 </div>
 
 ---
