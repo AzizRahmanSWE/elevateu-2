@@ -51,13 +51,13 @@ export const HeroParallax = ({
     springConfig
   )
   const translateY = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [-700, 500]),
+    useTransform(scrollYProgress, [0, 0.2], [-450, 350]),
     springConfig
   )
   return (
     <div
       ref={ref}
-      className="h-[300vh] py-40 overflow-hidden  antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
+      className="h-[220vh] md:h-[240vh] pt-24 pb-24 md:pt-28 md:pb-32 overflow-hidden antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
     >
       <Header />
       <motion.div
@@ -103,11 +103,11 @@ export const HeroParallax = ({
 
 export const Header = () => {
   return (
-    <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full  left-0 top-0">
-      <h1 className="text-2xl md:text-7xl font-bold dark:text-white">
+    <div className="max-w-7xl relative mx-auto pt-10 pb-12 md:pt-12 md:pb-16 px-4 w-full left-0 top-0">
+      <h1 className="text-2xl md:text-7xl font-bold text-white">
         Your Personal <br /> Fitness AI Coach
       </h1>
-      <p className="max-w-2xl text-base md:text-xl mt-8 dark:text-neutral-200">
+      <p className="max-w-2xl text-base md:text-xl mt-6 text-neutral-200">
         Achieve your fitness goals with personalized AI-driven workouts and nutrition plans.
         Join a community of fitness enthusiasts and transform your lifestyle today.
       </p>

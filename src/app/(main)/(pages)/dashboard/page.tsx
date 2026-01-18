@@ -21,6 +21,7 @@ import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import { ProgressChart } from '@/components/global/progress-chart';
 
 interface UserProfile {
   firstName: string;
@@ -40,6 +41,11 @@ interface DashboardStats {
   totalExercises: number;
 }
 
+interface ProgressData {
+  date: string;
+  value: number;
+}
+
 export default function DashboardPage() {
   const router = useRouter();
   const supabase = createClientComponentClient();
@@ -52,6 +58,8 @@ export default function DashboardPage() {
   });
   const [isLoading, setIsLoading] = useState(true);
   const [bmi, setBmi] = useState<number | null>(null);
+  const [weightProgress, setWeightProgress] = useState<ProgressData[]>([]);
+  const [workoutFrequency, setWorkoutFrequency] = useState<ProgressData[]>([]);
 
   useEffect(() => {
     async function loadDashboardData() {
@@ -87,7 +95,9 @@ export default function DashboardPage() {
           const { data: workouts, error: workoutsError } = await supabase
             .from('workout_sessions')
             .select('id, date')
-            .eq('userId', profileData.id);
+            .eq('userId', profileData.id)
+            .order('date', { ascending: false })
+            .limit(30);
 
           if (!workoutsError && workouts) {
             setStats({
@@ -96,16 +106,39 @@ export default function DashboardPage() {
               currentStreak: calculateStreak(workouts.map(w => w.date)),
               totalExercises: 0, // TODO: Calculate from session_exercises
             });
-          }
-        }
 
-        if (!workoutsError && workouts) {
-          setStats({
-            totalWorkouts: workouts.length,
-            completedWorkouts: workouts.length,
-            currentStreak: calculateStreak(workouts.map(w => w.date)),
-            totalExercises: 0, // TODO: Calculate from session_exercises
-          });
+            // Generate workout frequency data (last 7 days)
+            const last7Days = Array.from({ length: 7 }, (_, i) => {
+              const date = new Date();
+              date.setDate(date.getDate() - (6 - i));
+              return date.toISOString().split('T')[0];
+            });
+
+            const frequencyData = last7Days.map(date => ({
+              date,
+              value: workouts.filter(w => w.date.startsWith(date)).length,
+            }));
+            setWorkoutFrequency(frequencyData);
+          }
+
+          // Fetch progress entries for weight tracking
+          const { data: progressEntries } = await supabase
+            .from('progress_entries')
+            .select('date, weightKg')
+            .eq('userId', profileData.id)
+            .order('date', { ascending: false })
+            .limit(14);
+
+          if (progressEntries && progressEntries.length > 0) {
+            const weightData = progressEntries
+              .reverse()
+              .filter(p => p.weightKg)
+              .map(p => ({
+                date: p.date,
+                value: p.weightKg!,
+              }));
+            setWeightProgress(weightData);
+          }
         }
 
         setIsLoading(false);
@@ -392,41 +425,59 @@ export default function DashboardPage() {
             </div>
           </motion.div>
 
-          {/* Recent Activity / Empty State */}
+          {/* Progress Charts */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8 }}
-            className="bg-gray-900/50 backdrop-blur-xl border border-gray-800 rounded-xl p-6"
+            className="space-y-6"
           >
-            <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-              <TrendingUp className="w-5 h-5 text-purple-400" />
-              Your Progress
-            </h2>
-            {stats.totalWorkouts === 0 ? (
-              <div className="text-center py-12">
-                <div className="w-20 h-20 bg-purple-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Dumbbell className="w-10 h-10 text-purple-400" />
+            <div className="bg-gray-900/50 backdrop-blur-xl border border-gray-800 rounded-xl p-6">
+              <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                <TrendingUp className="w-5 h-5 text-purple-400" />
+                Your Progress
+              </h2>
+              {stats.totalWorkouts === 0 ? (
+                <div className="text-center py-12">
+                  <div className="w-20 h-20 bg-purple-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Dumbbell className="w-10 h-10 text-purple-400" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-white mb-2">No workouts yet</h3>
+                  <p className="text-gray-400 mb-6 max-w-md mx-auto">
+                    Start your fitness journey by creating your first workout plan. Our AI will help you build a personalized program!
+                  </p>
+                  <Link href="/all-workouts">
+                    <Button className="gap-2 bg-gradient-to-r from-purple-600 to-pink-600">
+                      <Plus className="w-4 h-4" />
+                      Create Your First Workout
+                    </Button>
+                  </Link>
                 </div>
-                <h3 className="text-lg font-semibold text-white mb-2">No workouts yet</h3>
-                <p className="text-gray-400 mb-6 max-w-md mx-auto">
-                  Start your fitness journey by creating your first workout plan. Our AI will help you build a personalized program!
-                </p>
-                <Link href="/all-workouts">
-                  <Button className="gap-2 bg-gradient-to-r from-purple-600 to-pink-600">
-                    <Plus className="w-4 h-4" />
-                    Create Your First Workout
-                  </Button>
-                </Link>
-              </div>
-            ) : (
-              <div className="space-y-4">
-                {/* Placeholder for workout history */}
-                <div className="text-gray-400 text-center py-8">
-                  Workout history will appear here
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {workoutFrequency.length > 0 && (
+                    <ProgressChart
+                      data={workoutFrequency}
+                      label="Workout Frequency (Last 7 Days)"
+                      color="bg-gradient-to-t from-purple-500 to-pink-500"
+                    />
+                  )}
+                  {weightProgress.length > 0 && (
+                    <ProgressChart
+                      data={weightProgress}
+                      label="Weight Progress"
+                      color="bg-gradient-to-t from-blue-500 to-cyan-500"
+                      unit="kg"
+                    />
+                  )}
+                  {workoutFrequency.length === 0 && weightProgress.length === 0 && (
+                    <div className="col-span-2 text-center py-8 text-gray-400">
+                      Complete more workouts to see your progress charts
+                    </div>
+                  )}
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </motion.div>
         </div>
       </div>

@@ -8,9 +8,8 @@
   box-sizing: border-box;
 }
 
-*::-webkit-scrollbar {
-  display: none !important;
-}
+
+/* Scrollbar styling intentionally left as browser default */
 .bg-radial-gradient {
   background-image: radial-gradient(
     circle at 10% 20%,
@@ -73,4 +72,18 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+@keyframes gradient {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient 3s ease infinite;
 }
