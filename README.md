@@ -309,13 +309,6 @@ See `prisma/schema.prisma` for complete schema definition.
    - Add all variables from `.env.local`
    - Set `NEXT_PUBLIC_SITE_URL` to your production URL
 
-### Other Platforms
-
-The app can be deployed to any platform supporting Next.js:
-- **Netlify**: Configure build command and environment variables
-- **Railway**: Connect GitHub repo and add environment variables
-- **AWS Amplify**: Import repository and configure build settings
-
 ---
 
 ## 🧪 Testing
@@ -346,41 +339,6 @@ npm start
 
 ---
 
-## 🤝 Contributing
-
-Contributions are welcome! Please follow these steps:
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-### Development Guidelines
-- Follow TypeScript best practices
-- Write meaningful commit messages
-- Add comments for complex logic
-- Update documentation as needed
-- Test your changes thoroughly
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-## 👤 Author
-
-**Aziz Rahman**
-
-- GitHub: [@yourusername](https://github.com/yourusername)
-- LinkedIn: [Your LinkedIn](https://linkedin.com/in/yourprofile)
-- Email: your.email@example.com
-
----
-
 ## 🙏 Acknowledgments
 
 - [Next.js](https://nextjs.org/) team for the amazing framework
@@ -388,16 +346,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [shadcn/ui](https://ui.shadcn.com/) for beautiful components
 - [Aceternity UI](https://ui.aceternity.com/) for animation components
 - All open-source contributors
-
----
-
-## 📊 Project Stats
-
-- **Lines of Code**: ~5,000+
-- **Components**: 30+
-- **Pages**: 10+
-- **Database Tables**: 9
-- **API Routes**: 15+
 
 ---
 
